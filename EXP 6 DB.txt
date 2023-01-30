@@ -1,0 +1,59 @@
+mysql>  select * from student where Regno between 1234 and 7349;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI  | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from mark where marks between 90 to 98;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 98' at line 1
+mysql> select * from mark where marks between 90 and 98;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+|  1234 | KEERTHANAA |    90 | maths   |
+|  7349 | VIGNESH    |    98 | maths   |
++-------+------------+-------+---------+
+2 rows in set (0.00 sec)
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name), regno from students
+    -> group by regno having count(name)>0;
+ERROR 1146 (42S02): Table 'student.students' doesn't exist
+mysql> select count(name), regno from student
+    -> group by regno having count(name)>0;
++-------------+-------+
+| count(name) | regno |
++-------------+-------+
+|           1 |  1234 |
+|           1 |  7189 |
+|           1 |  7349 |
+|           1 |  9999 |
++-------------+-------+
+4 rows in set (0.00 sec)
+mysql> select avg(marks) from mark
+    -> ;
++------------+
+| avg(marks) |
++------------+
+|    91.0000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from mark
+    -> ;
++------------+
+| sum(marks) |
++------------+
+|        273 |
++------------+
+1 row in set (0.00 sec)

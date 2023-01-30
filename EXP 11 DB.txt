@@ -1,0 +1,133 @@
+mysql> select * from doc;
++--------------+---------------+--------+
+| dname        | qualification | salary |
++--------------+---------------+--------+
+| AUXI JOE     | head nurse    |  75000 |
+| KEERTHANAA   | psychologist  |  70000 |
+| KRITHIKA.M.A | gynaecologist | 120000 |
+| RITHIKA      | surgeon       | 150000 |
+| SANTHOSH     | neurologist   | 150000 |
+| SARAH        | physician     | 100000 |
++--------------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> update doc set dname='ROSHAN KUMAR' where qualification='physician';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from doc;
++--------------+---------------+--------+
+| dname        | qualification | salary |
++--------------+---------------+--------+
+| AUXI JOE     | head nurse    |  75000 |
+| KEERTHANAA   | psychologist  |  70000 |
+| KRITHIKA.M.A | gynaecologist | 120000 |
+| RITHIKA      | surgeon       | 150000 |
+| ROSHAN KUMAR | physician     | 100000 |
+| SANTHOSH     | neurologist   | 150000 |
++--------------+---------------+--------+
+6 rows in set (0.00 sec)
+mysql> select pname,age,
+    -> case
+    -> when age>30 then 'age greater than 30'
+    -> when age=30 then 'age is 30'
+    -> else 'the age is under 30'
+    -> end as pname
+    -> from patient;
++------------+------+---------------------+
+| pname      | age  | pname               |
++------------+------+---------------------+
+| JOHN       |   54 | age greater than 30 |
+| SALLY      |   25 | the age is under 30 |
+| CAROLINE   |   21 | the age is under 30 |
+| SHAMITHA   |   20 | the age is under 30 |
+| ARUN KUMAR |   34 | age greater than 30 |
+| VIGNESH    |   12 | the age is under 30 |
+| NIKITHA    |   45 | age greater than 30 |
+| ARAVIND    |   29 | the age is under 30 |
++------------+------+---------------------+
+8 rows in set (0.00 sec)
+mysql> SELECT IF(500<1000, "YES", "NO");
++---------------------------+
+| IF(500<1000, "YES", "NO") |
++---------------------------+
+| YES                       |
++---------------------------+
+1 row in set (0.00 sec)
+mysql> delimiter //
+mysql> CREATE procedure proc()
+    -> BEGIN
+    ->    DECLARE val INT default 15;
+    ->    DECLARE res VARCHAR(255) default '';
+    ->    label: LOOP
+    ->       IF val < 0 THEN
+    ->          LEAVE label;
+    ->       END IF;
+    ->       SET res = CONCAT(res, val, ',');
+    ->       SET val = val -1;
+    ->       ITERATE label;
+    ->    END LOOP;
+    ->    SELECT res;
+    -> END//
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> call proc//
++----------------------------------------+
+| res                                    |
++----------------------------------------+
+| 15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0, |
++----------------------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+mysql> DELIMITER //
+mysql> CREATE FUNCTION Sample (bonus INT)
+    ->    RETURNS INT
+    ->    BEGIN
+    ->       DECLARE income INT;
+    ->       SET income = 0;
+    ->       myLabel: LOOP
+    ->          SET income = income + bonus;
+    ->          IF income < 10000 THEN
+    ->             ITERATE myLabel;
+    ->          END IF;
+    ->          LEAVE myLabel;
+    ->       END LOOP myLabel;
+    ->    RETURN income;
+    -> END; //
+Query OK, 0 rows affected (0.41 sec)
+mysql> DELIMITER ;
+mysql> SELECT Sample(1000);
++--------------+
+| Sample(1000) |
++--------------+
+| 10000        |
++--------------+
+1 row in set (0.15 sec)
+mysql> use customer;
+Database changed
+mysql> DROP PROCEDURE IF EXISTS GeekLoop();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE GeekLoop()
+    ->  BEGIN
+    -> DECLARE no INT;
+    ->   SET no = 0;
+    ->   loop: LOOP
+    ->     SET no = no +1;
+    ->     select no ;
+    ->     IF no =5 THEN
+    ->      LEAVE loop;
+    ->     END IF;
+    ->  END LOOP loop;
+    -> SELECT no;
+    -> END $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ': LOOP
+    SET no = no +1;
+    select no ;
+    IF no =5 THEN
+     LEAVE loop;
+  ' at line 5
+mysql> DELIMITER ;
+mysql> call geekloop();
+mysql> 0, 1, 2, 3, 4, 5

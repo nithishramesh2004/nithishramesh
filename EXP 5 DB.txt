@@ -1,0 +1,139 @@
+
+mysql> desc student;
+ERROR 1046 (3D000): No database selected
+mysql> use student;
+Database changed
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where Regno=1234;
+ERROR 1146 (42S02): Table 'student.employee' doesn't exist
+mysql> select * from student where Regno=1234;;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from employee where Regno between 1234 and 7349;
+ERROR 1146 (42S02): Table 'student.employee' doesn't exist
+mysql> select * from student where Regno between 1234 and 7349;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI  | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+3 rows in set (0.01 sec)
+
+mysql> create table mark(regno int(6),name varchar(10), marks int(3));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc mark;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| regno | int(6)      | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into mark values ('1234','KEERTHANAA','90');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mark values ('7349','VIGNESH','98');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mark values ('7658','RIYA','85');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from mark;
++-------+------------+-------+
+| regno | name       | marks |
++-------+------------+-------+
+|  1234 | KEERTHANAA |    90 |
+|  7349 | VIGNESH    |    98 |
+|  7658 | RIYA       |    85 |
++-------+------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(marks) from mark;
++------------+
+| avg(marks) |
++------------+
+|    91.0000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from mark;
++------------+
+| max(marks) |
++------------+
+|         98 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from mark;
++------------+
+| min(marks) |
++------------+
+|         85 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from mark;
++------------+
+| sum(marks) |
++------------+
+|        273 |
++------------+
+1 row in set (0.00 sec)
+mysql> select * from student where name LIKE '%AA';
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name LIKE 'VI%';
++-------+---------+--------+------------+----------+---------+
+| Regno | name    | gender | dob        | mobileno | emis    |
++-------+---------+--------+------------+----------+---------+
+|  7349 | VIGNESH | M      | 2010-09-13 | 92738362 | 6363563 |
++-------+---------+--------+------------+----------+---------+
+1 row in set (0.00 sec)

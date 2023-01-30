@@ -1,0 +1,76 @@
+mysql> use student;
+Database changed
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student values ('9999','SURESHKUMAR','M','1976-12-18','944458999','87465839');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student values ('9999','NAGALAXMI','F','1980-04-05','944411718','76579543');
+ERROR 1062 (23000): Duplicate entry '9999' for key 'PRIMARY'
+mysql> INSERT INTO student values ('7189','NAGALAXMI','F','1980-04-05','944411718','76579543');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+mysql> INSERT INTO student values ('8659','RIYA','M','19807-08-02','7832538','656367');
+ERROR 1292 (22007): Incorrect date value: '19807-08-02' for column 'dob' at row 1
+mysql> INSERT INTO student values ('8659','RIYA','M','1987-08-02','7832538','656367');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  8659 | RIYA        | M      | 1987-08-02 |   7832538 |   656367 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> update student
+    -> set regno=7654 where name='RIYA';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  7654 | RIYA        | M      | 1987-08-02 |   7832538 |   656367 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from student where name='RIYA';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)

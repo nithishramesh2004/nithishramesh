@@ -1,0 +1,75 @@
+
+mysql> select name,gender,dob from student order by Regno;
++-------------+--------+------------+
+| name        | gender | dob        |
++-------------+--------+------------+
+| KEERTHANAA  | F      | 2005-05-29 |
+| NAGALAXMI   | F      | 1980-04-05 |
+| VIGNESH     | M      | 2010-09-13 |
+| SURESHKUMAR | M      | 1976-12-18 |
++-------------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select name,gender,dob from student order by name;
++-------------+--------+------------+
+| name        | gender | dob        |
++-------------+--------+------------+
+| KEERTHANAA  | F      | 2005-05-29 |
+| NAGALAXMI   | F      | 1980-04-05 |
+| SURESHKUMAR | M      | 1976-12-18 |
+| VIGNESH     | M      | 2010-09-13 |
++-------------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+|  1234 | KEERTHANAA |    90 | maths   |
+|  7349 | VIGNESH    |    98 | maths   |
+|  7658 | RIYA       |    85 | maths   |
++-------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select name,marks from mark order by marks;
++------------+-------+
+| name       | marks |
++------------+-------+
+| RIYA       |    85 |
+| KEERTHANAA |    90 |
+| VIGNESH    |    98 |
++------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select name,marks from mark order by marks DESC;
++------------+-------+
+| name       | marks |
++------------+-------+
+| VIGNESH    |    98 |
+| KEERTHANAA |    90 |
+| RIYA       |    85 |
++------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name), regno from students
+    -> group by regno having count(name)>0;
+ERROR 1146 (42S02): Table 'student.students' doesn't exist
+mysql> select count(name), regno from student
+    -> group by regno having count(name)>0;
++-------------+-------+
+| count(name) | regno |
++-------------+-------+
+|           1 |  1234 |
+|           1 |  7189 |
+|           1 |  7349 |
+|           1 |  9999 |
++-------------+-------+
+4 rows in set (0.00 sec)
